@@ -149,7 +149,7 @@ exports.extend = function(app, options) {
             convertParams(req.body, name, data);
         });
         req.busboy.on('finish', () => {
-            req.body = qs.parse(qs.stringify(req.body));
+            req.body = qs.parse(qs.stringify(req.body), { arrayLimit: Number.MAX_SAFE_INTEGER });
             if (restrictMultiple) {
                 [req.body, req.files].forEach(fixDups);
             }
